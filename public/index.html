@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Muganza Marketplace - Nunua na Uza bidhaa kwa urahisi">
+    <title>Muganza Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
+
+    <!-- For the logo image -->
+<!-- <img src="./images/logo.svg" alt="Muganza Marketplace"> -->
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <img src="./images/victoria2.jpeg" alt="Muganza Marketplace Logo" class="splash-logo">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <a href="/" class="logo">
+                        <img src="./images/victoria2.jpeg" alt="Muganza Marketplace">
+                        <span>Muganza</span>
+                    </a>
+                    
+                    <nav class="main-nav">
+                        <button class="nav-toggle" aria-label="Toggle menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <ul class="nav-menu">
+                            <li><a href="#" onclick="showSection('home')">Nyumbani</a></li>
+                            <li><a href="#" onclick="window.showSection('products')">Bidhaa</a></li>
+                            <li id="sellerDashboardBtn" style="display:none;">
+                                <a href="#" onclick="showSection('sellerDashboard')">Dashibodi</a>
+                            </li>
+                            <li id="customerDashboardBtn" style="display:none;">
+                                <a href="#" onclick="showSection('customerDashboard')">Maagizo</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <div class="user-actions">
+                        <button id="loginBtn" class="btn btn-outline" onclick="window.showLogin()">Ingia</button>
+                        <button id="registerBtn" class="btn btn-primary" onclick="window.showRegister()">Jisajili</button>
+                        <div id="userInfo" class="user-info" style="display:none;">
+                            <div class="user-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="user-details">
+                                <span class="user-name" id="userName"></span>
+                                <button class="btn-logout" onclick="logout()">Ondoka</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="hero">
+                    <div class="container">
+                        <div class="hero-content">
+                            <h1>Karibu Muganza Marketplace</h1>
+                            <p class="hero-text">Nunua na uza bidhaa mbalimbali kwa urahisi na usalama</p>
+                            <div class="hero-actions">
+                                <button class="btn btn-primary btn-lg" onclick="window.showSection('products')">
+                                    Angalia Bidhaa <i class="fas fa-arrow-right"></i>
+                                </button>
+                                <button class="btn btn-outline btn-lg" onclick="showRegister()">
+                                    Anza Kuuza
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features">
+                    <div class="container">
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-search-location"></i>
+                                </div>
+                                <h3>Tafuta kwa Eneo</h3>
+                                <p>Pata bidhaa zilizo karibu na eneo lako</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h3>Usalama wa Hakika</h3>
+                                <p>Mazungumzo ya moja kwa moja na muuzaji</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-tags"></i>
+                                </div>
+                                <h3>Bei Nafuu</h3>
+                                <p>Pata punguzo na ofa mbalimbali</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Bidhaa Zote</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" onclick="window.showAddProduct()" id="addProductBtn" style="display:none;">
+                                <i class="fas fa-plus"></i> Ongeza Bidhaa
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Tafuta bidhaa...">
+                        </div>
+                        <div class="filter-group">
+                            <select id="categoryFilter">
+                                <option value="">Aina zote</option>
+                                <option value="electronics">Elektroniki</option>
+                                <option value="fashion">Nguo na Mavazi</option>
+                                <option value="home">Vifaa vya Nyumbani</option>
+                                <option value="food">Chakula</option>
+                                <option value="books">Vitabu</option>
+                                <option value="other">Nyingine</option>
+                            </select>
+                            <select id="locationFilter">
+                                <option value="">Maeneo yote</option>
+                                <option value="Dar es Salaam">Dar es Salaam</option>
+                                <option value="Dodoma">Dodoma</option>
+                                <option value="Arusha">Arusha</option>
+                                <option value="Mwanza">Mwanza</option>
+                                <option value="Mbeya">Mbeya</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="productsGrid" class="products-grid">
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Inapakia bidhaa...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Details Section -->
+            <section id="productDetailsSection" class="section">
+                <div class="container">
+                    <button class="btn btn-back" onclick="window.showSection('products')">
+                        <i class="fas fa-arrow-left"></i> Rudi kwa Bidhaa
+                    </button>
+                    
+                    <div id="productDetailsContent" class="product-details-container">
+                        <!-- Content loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seller Dashboard -->
+            <section id="sellerDashboard" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Dashibodi ya Muuzaji</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" onclick="window.showAddProduct()">
+                                <i class="fas fa-plus"></i> Ongeza Bidhaa
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="myProducts" class="products-grid">
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Inapakia bidhaa zako...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Dashboard -->
+            <section id="customerDashboard" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Dashibodi ya Mteja</h2>
+                    </div>
+                    
+                    <div id="myOrders" class="orders-list">
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Inapakia maagizo yako...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <img src="./images/logo.svg" alt="Muganza Marketplace" class="footer-logo">
+                        <p>Mfumo wa biashara ya mkondoni kwa wakazi wa Muganza na maeneo jirani.</p>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <h4>Menyu</h4>
+                        <ul>
+                            <li><a href="#" onclick="showSection('home')">Nyumbani</a></li>
+                            <li><a href="#" onclick="window.showSection('products')">Bidhaa</a></li>
+                            <li><a href="#" onclick="showSection('sellerDashboard')">Uza Bidhaa</a></li>
+                            <li><a href="#" onclick="showSection('customerDashboard')">Nunua Bidhaa</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-contact">
+                        <h4>Mawasiliano</h4>
+                        <ul>
+                            <li><i class="fas fa-phone"></i> +255 740 107 466</li>
+                            <li><i class="fas fa-envelope"></i> info@muganza.co.tz</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Muganza, Tanzania</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2023 Muganza Marketplace. Haki zote zimehifadhiwa.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('loginModal')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2>Ingia Akaunti</h2>
+                <p>Ingia kwa kutumia namba yako ya simu</p>
+            </div>
+            
+            <form id="loginForm" class="modal-form">
+                <div class="form-group">
+                    <label for="loginPhone">Namba ya Simu</label>
+                    <input type="tel" id="loginPhone" placeholder="+255..." required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Neno la Siri</label>
+                    <input type="password" id="loginPassword" required>
+                    <a href="#" class="forgot-password">Umesahau neno la siri?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Ingia</button>
+            </form>
+            
+            <div class="modal-footer">
+                <p>Huna akaunti? <a href="#" onclick="switchToRegister()">Jisajili hapa</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('registerModal')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2>Jisajili Akaunti</h2>
+                <p>Jisajili kwa dakika chache tu</p>
+            </div>
+            
+            <form id="registerForm" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Jina la Kwanza</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Jina la Mwisho</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPhone">Namba ya Simu</label>
+                    <input type="tel" id="registerPhone" placeholder="+255..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userLocation">Eneo</label>
+                    <select id="userLocation" required>
+                        <option value="">Chagua Eneo</option>
+                        <option value="Dar es Salaam">Dar es Salaam</option>
+                        <option value="Dodoma">Dodoma</option>
+                        <option value="Arusha">Arusha</option>
+                        <option value="Mwanza">Mwanza</option>
+                        <option value="Mbeya">Mbeya</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userType">Aina ya Akaunti</label>
+                    <select id="userType" required>
+                        <option value="">Chagua Aina</option>
+                        <option value="customer">Mteja</option>
+                        <option value="seller">Muuzaji</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Neno la Siri</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Jisajili</button>
+            </form>
+            
+            <div class="modal-footer">
+                <p>Tayari una akaunti? <a href="#" onclick="switchToLogin()">Ingia hapa</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('addProductModal')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2>Ongeza Bidhaa Mpya</h2>
+                <p>Jaza maelezo ya bidhaa yako</p>
+            </div>
+            
+            <form id="addProductForm" class="modal-form">
+                <div class="form-group">
+                    <label for="productImage">Picha ya Bidhaa</label>
+                    <div class="file-upload">
+                        <input type="file" id="productImage" accept="image/*" required>
+                        <label for="productImage" class="file-upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Chagua Picha</span>
+                        </label>
+                        <div id="fileName" class="file-name">Haijachaguliwa picha</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productName">Jina la Bidhaa</label>
+                    <input type="text" id="productName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">Maelezo</label>
+                    <textarea id="productDescription" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice">Bei (TSh)</label>
+                        <input type="number" id="productPrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productStock">Idadi</label>
+                        <input type="number" id="productStock" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productCategory">Aina ya Bidhaa</label>
+                    <select id="productCategory" required>
+                        <option value="">Chagua Aina</option>
+                        <option value="electronics">Elektroniki</option>
+                        <option value="fashion">Nguo na Mavazi</option>
+                        <option value="home">Vifaa vya Nyumbani</option>
+                        <option value="food">Chakula</option>
+                        <option value="books">Vitabu</option>
+                        <option value="other">Nyingine</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Hifadhi Bidhaa</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <a href="https://wa.me/255740107466" class="float-btn whatsapp-btn" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <button id="backToTop" class="float-btn back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-storage-compat.min.js"></script>
+    
+
+
+    <!-- At the bottom of your body tag -->
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
