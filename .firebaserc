@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "biashara-37163",
+    "staging": "biashara-37163"
+  },
+  "targets": {},
+  "etags": {}
+}
